@@ -1,0 +1,21 @@
+{
+  "name": "citra-lobby",
+  "version": "1.0.0",
+  "description": "Citra lobby API",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "npm start"
+  },
+  "keywords": [
+    "citra",
+    "lobby",
+    "api"
+  ],
+  "author": "Valentin Vanelslande",
+  "license": "ISC"
+}
