@@ -8,11 +8,11 @@ var updated = new Map();
 app.use(bodyParser.json());
 app.enable('trust proxy');
 
-app.get('/', (req, res) => {
+app.get('/lobby', (req, res) => {
   res.json(Array.from(rooms.values()));
 });
 
-app.post('/', (req, res) => {
+app.post('/lobby', (req, res) => {
   var delete_room = 'delete' in req.body;
   if (delete_room ||
       ('name' in req.body && 'creator' in req.body && 'port' in req.body &&
