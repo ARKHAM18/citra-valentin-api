@@ -1,6 +1,7 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var bodyParser = require('body-parser');
+var functions = require('firebase-functions');
 
 var rooms = new Map();
 var updated = new Map();
@@ -50,7 +51,8 @@ setInterval(() => {
             throw 0;
           }
         });
-      } catch {
+      } catch (e) {
+        // do nothing
       }
     }
   });
@@ -59,3 +61,5 @@ setInterval(() => {
 http.listen(process.env.PORT, '0.0.0.0', () => {
   console.log(`Listening on port ${process.env.PORT}`);
 });
+
+exports.app = functions.https.onRequest(app);
