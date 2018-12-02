@@ -62,4 +62,4 @@ http.listen(process.env.PORT, '0.0.0.0', () => {
   console.log(`Listening on port ${process.env.PORT}`);
 });
 
-exports.app = functions.https.onRequest(app);
+exports.api = functions.https.onRequest(app);
