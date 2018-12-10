@@ -43,7 +43,7 @@ app.post('/lobby', (req, res) => {
       const uid = `${req.body.ip}:${req.body.port}`;
       rooms.set(uid, req.body);
       console.log(`Room with UID ${uid} added/updated`);
-      checkRoomOpen();
+      checkRoomOpen(uid);
     }
   } else {
     res.status(400).send('Bad Request');
