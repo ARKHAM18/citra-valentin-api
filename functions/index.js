@@ -51,7 +51,7 @@ app.post('/lobby', (req, res) => {
 });
 
 setInterval(() => {
-  updated.forEach((v, k, m) => {
+  rooms.forEach((v, k, m) => {
     checkRoomOpen(k);
   });
 }, 20000);
