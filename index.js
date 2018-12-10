@@ -130,6 +130,6 @@ setInterval(() => {
 }, 20000);
 
 http.listen(process.env.PORT, '0.0.0.0', () => {
-  console.log('API initialized.');
+  console.log('API initialized');
   client.login(process.env.TOKEN).then(afterLogin);
 });
