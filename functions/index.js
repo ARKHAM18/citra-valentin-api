@@ -7,7 +7,7 @@ var rooms = new Map();
 
 function checkRoomOpen(uid, res) {
   var a = uid.split(':');
-  request({url: `http://${a[0]}:${a[1]}/`, timeout: 2000})
+  request({url: `http://${a[0]}:${a[1]}/`, timeout: 5000})
       .then((body) => {
         res.status(200).send('OK');
       })
