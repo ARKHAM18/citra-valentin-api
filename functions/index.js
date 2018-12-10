@@ -6,7 +6,7 @@ var request = require('request-promise-native');
 var rooms = new Map();
 var updated = new Map();
 
-function checkRoomOpen(uid, f) {
+function checkRoomOpen(uid, res) {
   var a = uid.split(':');
   request(`http://${a[0]}:${a[1]}/`, (error) => {
     if (error) {
