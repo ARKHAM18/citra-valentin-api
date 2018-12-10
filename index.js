@@ -56,5 +56,5 @@ setInterval(() => {
 }, 20000);
 
 http.listen(process.env.PORT, '0.0.0.0', () => {
-  console.log('Listening on port 80');
+  console.log(`Listening on port ${process.env.PORT}`);
 });
