@@ -40,8 +40,8 @@ app.post('/lobby', (req, res) => {
       console.log(`Room with UID ${uid} removed`);
       res.status(200).send('OK');
     } else {
+      const uid = `${req.body.ip}:${req.body.port}`;
       checkRoomOpen(uid, res, () => {
-        const uid = `${req.body.ip}:${req.body.port}`;
         rooms.set(uid, req.body);
         console.log(`Room with UID ${uid} added/updated`);
       });
