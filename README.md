@@ -1,2 +1,2 @@
 # citra-valentin-api
-Citra API for my fork
+Citra API and Discord bot for my fork
