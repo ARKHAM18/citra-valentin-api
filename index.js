@@ -1,7 +1,6 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var bodyParser = require('body-parser');
-var functions = require('firebase-functions');
 var request = require('request-promise-native');
 var rooms = new Map();
 
@@ -55,8 +54,6 @@ setInterval(() => {
   });
 }, 20000);
 
-http.listen(process.env.PORT, '0.0.0.0', () => {
-  console.log(`Listening on port ${process.env.PORT}`);
+http.listen(80, '0.0.0.0', () => {
+  console.log('Listening on port 80');
 });
-
-exports.api = functions.https.onRequest(app);
