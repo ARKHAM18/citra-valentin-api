@@ -8,13 +8,14 @@ function checkRoomOpen(uid, res) {
   var a = uid.split(':');
   request({url: `http://${a[0]}:${a[1]}/`, timeout: 5000})
       .then((body) => {
-        res.status(200).send('OK');
+        if (res) res.status(200).send('OK');
       })
       .catch((error) => {
         rooms.delete(uid);
         console.log(`Room with UID ${uid} removed`);
-        res.status(200).send(
-            'You need to open both TCP & UDP ports to create a public room.');
+        if (res)
+          res.status(200).send(
+              'You need to open both TCP & UDP ports to create a public room.');
       });
 }
 
