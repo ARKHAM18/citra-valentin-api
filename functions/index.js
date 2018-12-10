@@ -2,9 +2,25 @@ var app = require('express')();
 var http = require('http').Server(app);
 var bodyParser = require('body-parser');
 var functions = require('firebase-functions');
-
+var request = require('request-promise-native');
 var rooms = new Map();
 var updated = new Map();
+
+function checkRoomOpen(uid, f) {
+  var a = uid.split(':');
+  request(`http://${a[0]}:${a[1]}/`, (error) => {
+    if (error) {
+      rooms.delete(uid);
+      updated.delete(uid);
+      console.log(`Room with UID ${uid} removed`);
+      if (res)
+        res.status(200).send(
+            'You need to open both TCP & UDP ports to create a public room.');
+    } else {
+      if (res) res.status(200).send('OK');
+    }
+  });
+}
 
 app.use(bodyParser.json());
 app.enable('trust proxy');
@@ -25,38 +41,24 @@ app.post('/lobby', (req, res) => {
       rooms.delete(uid);
       updated.delete(uid);
       console.log(`Room with UID ${uid} removed`);
+      res.status(200).send('OK');
     } else {
       const uid = `${req.body.ip}:${req.body.port}`;
       rooms.set(uid, req.body);
       updated.set(uid, new Date().getTime());
       console.log(`Room with UID ${uid} added/updated`);
+      checkRoomOpen();
     }
-    res.status(200).send('OK');
   } else {
     res.status(400).send('Bad Request');
   }
 });
 
-const MAX_TIMEOUT = 20000;
-
 setInterval(() => {
   updated.forEach((v, k, m) => {
-    var diff = new Date().getTime() - v;
-    if (diff > MAX_TIMEOUT) {
-      try {
-        rooms.forEach((room) => {
-          if (k === room.ip + ':' + room.port) {
-            rooms.delete(k);
-            updated.delete(k);
-            throw 0;
-          }
-        });
-      } catch (e) {
-        // do nothing
-      }
-    }
+    checkRoomOpen(k);
   });
-}, 1000);
+}, 20000);
 
 http.listen(process.env.PORT, '0.0.0.0', () => {
   console.log(`Listening on port ${process.env.PORT}`);
