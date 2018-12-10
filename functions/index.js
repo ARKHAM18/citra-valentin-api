@@ -7,7 +7,7 @@ var rooms = new Map();
 
 function checkRoomOpen(uid, res) {
   var a = uid.split(':');
-  request(`http://${a[0]}:${a[1]}/`, (error) => {
+  request({url: `http://${a[0]}:${a[1]}/`, timeout: 2000}, (error) => {
     if (error) {
       rooms.delete(uid);
       console.log(`Room with UID ${uid} removed`);
