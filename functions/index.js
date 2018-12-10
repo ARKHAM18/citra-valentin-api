@@ -4,14 +4,12 @@ var bodyParser = require('body-parser');
 var functions = require('firebase-functions');
 var request = require('request-promise-native');
 var rooms = new Map();
-var updated = new Map();
 
 function checkRoomOpen(uid, res) {
   var a = uid.split(':');
   request(`http://${a[0]}:${a[1]}/`, (error) => {
     if (error) {
       rooms.delete(uid);
-      updated.delete(uid);
       console.log(`Room with UID ${uid} removed`);
       if (res)
         res.status(200).send(
@@ -39,13 +37,11 @@ app.post('/lobby', (req, res) => {
     if (delete_room) {
       const uid = `${req.body.ip}:${req.body.delete}`;
       rooms.delete(uid);
-      updated.delete(uid);
       console.log(`Room with UID ${uid} removed`);
       res.status(200).send('OK');
     } else {
       const uid = `${req.body.ip}:${req.body.port}`;
       rooms.set(uid, req.body);
-      updated.set(uid, new Date().getTime());
       console.log(`Room with UID ${uid} added/updated`);
       checkRoomOpen();
     }
