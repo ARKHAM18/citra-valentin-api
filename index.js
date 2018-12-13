@@ -38,8 +38,8 @@ app.post('/lobby', (req, res) => {
   var delete_room = 'delete' in req.body;
   if (delete_room ||
       ('name' in req.body && 'creator' in req.body && 'port' in req.body &&
-       'maxMembers' in req.body && 'netVersion' in req.body &&
-       'hasPassword' in req.body)) {
+       'max_members' in req.body && 'net_version' in req.body &&
+       'has_password' in req.body)) {
     req.body.ip = req.ip;
     if (delete_room) {
       const uid = `${req.body.ip}:${req.body.delete}`;
