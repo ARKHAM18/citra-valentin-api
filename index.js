@@ -79,4 +79,5 @@ setInterval(() => {
 
 http.listen(process.env.PORT, '0.0.0.0', () => {
   load();
+  console.log('API initialized');
 });
