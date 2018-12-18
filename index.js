@@ -35,7 +35,7 @@ function checkRoomOpen(uid, res, open) {
         console.log(`Room ${uid}: host didn't port forward`);
         if (res)
           res.status(200).send(
-              'You need to open both TCP & UDP ports to create a public room.');
+              'You need to open both TCP & UDP ports to create a public room.\nThe room will be private.');
       });
 }
 
